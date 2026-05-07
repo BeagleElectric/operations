@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beagle Electric — Operations Manual</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+/* ── RESET & BASE ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --yellow: #F5C518;
+  --black: #111111;
+  --navy: #1B3A6B;
+  --mid: #2E75B6;
+  --gray: #888888;
+  --light: #F8F8F8;
+  --border: #E0E0E0;
+  --text: #222222;
+  --muted: #666666;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: #F2F2F0;
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+/* ── SIDEBAR NAV ── */
+.sidebar {
+  position: fixed;
+  top: 0; left: 0;
+  width: 260px;
+  height: 100vh;
+  background: var(--black);
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+  overflow-y: auto;
+}
+
+.sidebar-brand {
+  padding: 24px 22px 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.sidebar-brand .brand-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.3rem;
+  letter-spacing: 3px;
+  color: var(--yellow);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.sidebar-brand .brand-sub {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #888;
+}
+
+.nav-section-label {
+  font-size: 0.58rem;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  color: #555;
+  font-weight: 700;
+  padding: 16px 22px 6px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 22px;
+  text-decoration: none;
+  color: #aaa;
+  font-size: 0.8rem;
+  font-weight: 500;
+  transition: all 0.15s;
+  border-left: 3px solid transparent;
+}
+
+.nav-item:hover {
+  color: #fff;
+  background: rgba(255,255,255,0.05);
+  border-left-color: var(--yellow);
+}
+
+.nav-item.active {
+  color: #fff;
+  background: rgba(245,197,24,0.08);
+  border-left-color: var(--yellow);
+}
+
+.nav-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1rem;
+  color: var(--yellow);
+  min-width: 18px;
+  opacity: 0.7;
+}
+
+.nav-item.active .nav-num { opacity: 1; }
+
+.sidebar-footer {
+  margin-top: auto;
+  padding: 16px 22px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  font-size: 0.65rem;
+  color: #444;
+  line-height: 1.6;
+}
+
+/* ── MAIN CONTENT ── */
+.main {
+  margin-left: 260px;
+  min-height: 100vh;
+}
+
+/* ── TOP HERO ── */
+.hero {
+  background: var(--black);
+  padding: 60px 60px 50px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: 'OPERATIONS';
+  position: absolute;
+  top: -10px; right: -20px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 10rem;
+  letter-spacing: 8px;
+  color: rgba(255,255,255,0.025);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+.hero-eyebrow {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: var(--yellow);
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+
+.hero-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 4.5rem;
+  letter-spacing: 4px;
+  color: #fff;
+  line-height: 0.95;
+  margin-bottom: 20px;
+}
+
+.hero-title span { color: var(--yellow); }
+
+.hero-desc {
+  font-size: 0.88rem;
+  color: #aaa;
+  max-width: 520px;
+  line-height: 1.7;
+  margin-bottom: 28px;
+}
+
+.hero-pills {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.hero-pill {
+  border: 1.5px solid rgba(255,255,255,0.15);
+  border-radius: 4px;
+  padding: 5px 12px;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #888;
+  font-weight: 600;
+}
+
+.hero-pill.active {
+  background: var(--yellow);
+  border-color: var(--yellow);
+  color: var(--black);
+}
+
+/* ── SECTION WRAPPER ── */
+.section {
+  padding: 48px 60px;
+  border-bottom: 1px solid var(--border);
+  background: #fff;
+  scroll-margin-top: 0;
+}
+
+.section:nth-child(even) { background: var(--light); }
+
+.section-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  margin-bottom: 28px;
+  padding-bottom: 20px;
+  border-bottom: 3px solid var(--black);
+}
+
+.section-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 3.5rem;
+  color: var(--yellow);
+  line-height: 1;
+  flex-shrink: 0;
+  margin-top: -4px;
+}
+
+.section-meta { flex: 1; }
+
+.section-label {
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  color: var(--gray);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.section-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.2rem;
+  letter-spacing: 2px;
+  color: var(--black);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.section-who {
+  font-size: 0.75rem;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.section-who span {
+  display: inline-block;
+  background: var(--black);
+  color: var(--yellow);
+  font-family: 'Bebas Neue', sans-serif;
+  letter-spacing: 1px;
+  font-size: 0.7rem;
+  padding: 2px 8px;
+  border-radius: 3px;
+  margin-left: 6px;
+}
+
+/* ── INTRO BLURB ── */
+.intro-blurb {
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.65;
+  border-left: 3px solid var(--yellow);
+  padding-left: 14px;
+  margin-bottom: 28px;
+}
+
+/* ── NN CARDS ── */
+.nn-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 28px;
+}
+
+.nn-card {
+  border: 2px solid var(--black);
+  border-radius: 8px;
+  padding: 16px 18px;
+}
+
+.nn-card.yellow { background: var(--yellow); }
+.nn-card.dark   { background: var(--black); }
+
+.nn-label {
+  font-size: 0.58rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.nn-card.yellow .nn-label { color: #666; }
+.nn-card.dark   .nn-label { color: #666; }
+
+.nn-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.15rem;
+  letter-spacing: 1px;
+  line-height: 1.2;
+  margin-bottom: 6px;
+}
+
+.nn-card.yellow .nn-title { color: var(--black); }
+.nn-card.dark   .nn-title { color: var(--yellow); }
+
+.nn-sub { font-size: 0.73rem; line-height: 1.45; }
+.nn-card.yellow .nn-sub { color: #444; }
+.nn-card.dark   .nn-sub { color: #999; }
+
+/* ── SUB SECTION ── */
+.sub-section-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 0.95rem;
+  letter-spacing: 2px;
+  color: var(--gray);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 5px;
+}
+
+/* ── STEPS ── */
+.steps { margin-bottom: 24px; }
+
+.step {
+  display: flex;
+  align-items: stretch;
+  border-bottom: 1px solid #eee;
+}
+
+.step:last-child { border-bottom: none; }
+
+.step-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.8rem;
+  color: #ddd;
+  min-width: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 0;
+  flex-shrink: 0;
+}
+
+.step-content {
+  flex: 1;
+  padding: 10px 12px 10px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.step-text { flex: 1; }
+
+.step-title {
+  font-weight: 700;
+  font-size: 0.88rem;
+  color: var(--black);
+  line-height: 1.3;
+}
+
+.step-desc {
+  font-size: 0.74rem;
+  color: #777;
+  margin-top: 2px;
+  line-height: 1.4;
+}
+
+.step.hl {
+  background: #fffbea;
+  border-left: 3px solid var(--yellow);
+  margin-left: -3px;
+}
+
+.step.hl .step-num { color: var(--yellow); }
+
+/* ── TAGS ── */
+.tags { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 5px; }
+
+.tag {
+  font-size: 0.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 2px 7px;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+
+.tag-ecol   { background: #e8f0fe; color: #1a56c4; border: 1px solid #b8d0f8; }
+.tag-jobber { background: #fff3cd; color: #856404; border: 1px solid #e8b400; }
+.tag-wp     { background: #e8f4e8; color: #2a7a2a; border: 1px solid #b8dbb8; }
+.tag-dext   { background: #fce7f3; color: #9d174d; border: 1px solid #f9a8d4; }
+.tag-ts     { background: #ede9fe; color: #5b21b6; border: 1px solid #c4b5fd; }
+.tag-rc     { background: #dbeafe; color: #1e40af; border: 1px solid #93c5fd; }
+.tag-key    { background: var(--black); color: #fff; }
+.tag-verify { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
+.tag-greg   { background: #d1fae5; color: #065f46; border: 1px solid #6ee7b7; }
+.tag-timer  { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
+
+/* ── TIME BLOCKS ── */
+.time-block {
+  display: flex;
+  border: 1.5px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 7px;
+}
+
+.tb-time {
+  background: var(--black);
+  color: var(--yellow);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 0.88rem;
+  letter-spacing: 1px;
+  min-width: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 8px;
+  text-align: center;
+  line-height: 1.2;
+  flex-shrink: 0;
+}
+
+.tb-body { flex: 1; padding: 10px 14px; background: #fafafa; }
+.time-block.hl .tb-body { background: #fffbea; }
+.time-block.hl { border-color: var(--yellow); }
+
+.tb-title { font-weight: 700; font-size: 0.86rem; color: var(--black); margin-bottom: 3px; }
+.tb-desc  { font-size: 0.73rem; color: #666; line-height: 1.4; }
+
+/* ── DAY CARDS ── */
+.day-cards { display: flex; flex-direction: column; gap: 7px; margin-bottom: 24px; }
+
+.day-card {
+  display: flex;
+  border: 1.5px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.dc-day {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  min-width: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 8px;
+  color: #fff;
+  flex-shrink: 0;
+  text-align: center;
+}
+
+.dc-body { flex: 1; padding: 10px 14px; background: #f8f8f8; }
+.dc-title { font-weight: 700; font-size: 0.84rem; color: var(--black); margin-bottom: 4px; }
+
+.dc-items { list-style: none; }
+.dc-items li {
+  font-size: 0.72rem; color: #666; line-height: 1.5;
+  padding-left: 10px; position: relative;
+}
+.dc-items li::before { content:'—'; position:absolute; left:0; color:var(--yellow); font-weight:700; }
+
+/* ── MONTHLY TABLE ── */
+.monthly-table { width:100%; border-collapse:collapse; margin-bottom:24px; font-size:0.78rem; }
+.monthly-table th {
+  background: var(--black); color:#fff;
+  font-family:'Bebas Neue',sans-serif; letter-spacing:1.5px; font-size:0.84rem;
+  padding: 9px 14px; text-align:left; font-weight:400;
+}
+.monthly-table td {
+  padding:9px 14px; border-bottom:1px solid #eee; vertical-align:top; line-height:1.4;
+}
+.monthly-table tr:nth-child(even) td { background: #f8f8f8; }
+.monthly-table td:first-child { font-weight:700; color:var(--black); white-space:nowrap; }
+.monthly-table td:nth-child(2) { color:var(--navy); font-weight:600; }
+.monthly-table td:last-child { color:#555; }
+
+/* ── TWO COL ── */
+.two-col { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:24px; }
+
+.path-card { border:2.5px solid var(--black); border-radius:8px; padding:14px 16px; }
+.path-card.light { background:#fff; }
+.path-card.dark  { background:var(--black); }
+
+.path-label { font-size:0.58rem; text-transform:uppercase; letter-spacing:2px; font-weight:700; color:#888; margin-bottom:6px; }
+.path-title { font-family:'Bebas Neue',sans-serif; font-size:1.15rem; letter-spacing:1px; line-height:1.2; margin-bottom:10px; }
+.path-card.light .path-title { color:var(--black); }
+.path-card.dark  .path-title { color:var(--yellow); }
+
+.path-steps { list-style:none; }
+.path-steps li { font-size:0.73rem; line-height:1.5; padding:3px 0; border-bottom:1px solid #f0f0f0; display:flex; gap:8px; }
+.path-card.dark .path-steps li { border-bottom-color:rgba(255,255,255,0.06); color:#bbb; }
+.path-steps li:last-child { border-bottom:none; }
+.li-n { font-family:'Bebas Neue',sans-serif; font-size:0.95rem; color:var(--yellow); flex-shrink:0; line-height:1.4; }
+
+/* ── TIMING BANNER ── */
+.timing-banner { border:2.5px solid var(--black); border-radius:8px; overflow:hidden; margin-bottom:24px; display:flex; }
+.t-cell { flex:1; padding:14px 16px; text-align:center; border-right:2px solid var(--black); }
+.t-cell:last-child { border-right:none; }
+.t-cell.tc1 { background:#fff; }
+.t-cell.tc2 { background:var(--yellow); }
+.t-cell.tc3 { background:var(--black); }
+.t-label { font-size:0.58rem; text-transform:uppercase; letter-spacing:2px; font-weight:700; margin-bottom:5px; }
+.tc1 .t-label { color:#888; } .tc2 .t-label { color:#555; } .tc3 .t-label { color:#666; }
+.t-val { font-family:'Bebas Neue',sans-serif; font-size:1.6rem; letter-spacing:1px; line-height:1; margin-bottom:4px; }
+.tc1 .t-val { color:var(--black); } .tc2 .t-val { color:var(--black); } .tc3 .t-val { color:var(--yellow); }
+.t-sub { font-size:0.67rem; line-height:1.3; }
+.tc1 .t-sub { color:#777; } .tc2 .t-sub { color:#333; } .tc3 .t-sub { color:#aaa; }
+
+/* ── THRESHOLD CARDS ── */
+.threshold { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:24px; }
+.th-card { border:2.5px solid var(--black); border-radius:8px; padding:14px 16px; }
+.th-card.th-std { background:#fff; }
+.th-card.th-vfy { background:var(--black); }
+.th-label2 { font-size:0.58rem; text-transform:uppercase; letter-spacing:2px; font-weight:700; color:#888; margin-bottom:5px; }
+.th-amount { font-family:'Bebas Neue',sans-serif; font-size:1.8rem; letter-spacing:1px; line-height:1; margin-bottom:5px; }
+.th-card.th-std .th-amount { color:var(--black); }
+.th-card.th-vfy .th-amount { color:var(--yellow); }
+.th-desc2 { font-size:0.73rem; line-height:1.4; }
+.th-card.th-std .th-desc2 { color:#555; }
+.th-card.th-vfy .th-desc2 { color:#aaa; }
+
+/* ── RESPONSE BANNER ── */
+.resp-banner { display:grid; grid-template-columns:1fr 1fr 1fr; gap:0; border:2.5px solid var(--black); border-radius:8px; overflow:hidden; margin-bottom:24px; }
+.rb-c { padding:14px 16px; text-align:center; border-right:2px solid var(--black); }
+.rb-c:last-child { border-right:none; }
+.rb-c1 { background:#fff; } .rb-c2 { background:var(--yellow); } .rb-c3 { background:var(--black); }
+.rb-lbl { font-size:0.58rem; text-transform:uppercase; letter-spacing:2px; font-weight:700; margin-bottom:5px; }
+.rb-c1 .rb-lbl { color:#888; } .rb-c2 .rb-lbl { color:#555; } .rb-c3 .rb-lbl { color:#666; }
+.rb-val { font-family:'Bebas Neue',sans-serif; font-size:1.5rem; letter-spacing:1px; line-height:1; margin-bottom:4px; }
+.rb-c1 .rb-val { color:var(--black); } .rb-c2 .rb-val { color:var(--black); } .rb-c3 .rb-val { color:var(--yellow); }
+.rb-sub2 { font-size:0.67rem; line-height:1.3; }
+.rb-c1 .rb-sub2 { color:#777; } .rb-c2 .rb-sub2 { color:#333; } .rb-c3 .rb-sub2 { color:#aaa; }
+
+/* ── EXAMPLE BOX ── */
+.example-box {
+  background:#f8f8f8; border:1.5px solid var(--border);
+  border-left:4px solid var(--yellow); border-radius:6px;
+  padding:12px 16px; margin-bottom:24px;
+}
+.ex-label { font-size:0.58rem; text-transform:uppercase; letter-spacing:2px; font-weight:700; color:#888; margin-bottom:8px; }
+.ex-row { display:flex; gap:10px; margin-bottom:5px; font-size:0.77rem; line-height:1.4; }
+.ex-row:last-child { margin-bottom:0; }
+.ex-who { font-weight:700; color:var(--black); min-width:52px; flex-shrink:0; }
+.ex-msg { color:#555; }
+
+/* ── CHECKLIST ── */
+.checklist { border:2px solid var(--border); border-radius:8px; overflow:hidden; margin-bottom:24px; }
+.cl-hd { background:var(--black); padding:10px 16px; font-family:'Bebas Neue',sans-serif; font-size:0.95rem; letter-spacing:2px; color:var(--yellow); }
+.cl-item { display:flex; align-items:center; gap:12px; padding:9px 16px; border-bottom:1px solid #f0f0f0; font-size:0.77rem; color:#333; line-height:1.4; }
+.cl-item:last-child { border-bottom:none; }
+.cl-item:nth-child(even) { background:#f8f8f8; }
+.cl-box { width:16px; height:16px; border:2px solid #ccc; border-radius:3px; flex-shrink:0; }
+.cl-item strong { color:var(--black); }
+
+/* ── PRINCIPLES GRID ── */
+.principles { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-bottom:24px; }
+.pc { border:2px solid var(--black); border-radius:7px; padding:14px 15px; }
+.pc-num { font-family:'Bebas Neue',sans-serif; font-size:1.8rem; color:var(--yellow); line-height:1; margin-bottom:4px; }
+.pc-title { font-weight:700; font-size:0.83rem; color:var(--black); margin-bottom:5px; line-height:1.2; }
+.pc-body { font-size:0.71rem; color:#666; line-height:1.4; }
+.pc.dark { background:var(--black); }
+.pc.dark .pc-title { color:#fff; }
+.pc.dark .pc-body { color:#aaa; }
+
+/* ── BONUS BLOCK ── */
+.bonus-block {
+  background:var(--yellow); border:2.5px solid var(--black);
+  border-radius:8px; padding:16px 20px; margin-bottom:24px;
+  display:flex; gap:18px; align-items:center;
+}
+.bonus-icon { font-family:'Bebas Neue',sans-serif; font-size:2.8rem; color:var(--black); line-height:1; flex-shrink:0; }
+.bt-title { font-family:'Bebas Neue',sans-serif; font-size:1.15rem; letter-spacing:1px; color:var(--black); margin-bottom:5px; }
+.bt-body { font-size:0.77rem; color:#333; line-height:1.5; }
+
+/* ── TOC TABLE ── */
+.toc { width:100%; border-collapse:collapse; margin-bottom:24px; font-size:0.79rem; }
+.toc th { background:var(--black); color:#fff; font-family:'Bebas Neue',sans-serif; letter-spacing:1.5px; font-size:0.85rem; padding:9px 14px; text-align:left; font-weight:400; }
+.toc td { padding:9px 14px; border-bottom:1px solid #eee; vertical-align:middle; }
+.toc tr:nth-child(even) td { background:#f8f8f8; }
+.toc-num { font-family:'Bebas Neue',sans-serif; font-size:1.1rem; color:var(--yellow); background:var(--black); width:26px; height:26px; display:inline-flex; align-items:center; justify-content:center; border-radius:3px; }
+.toc-title { font-weight:700; color:var(--black); font-size:0.83rem; }
+.toc-sub { font-size:0.7rem; color:#888; margin-top:1px; }
+.toc-tag { font-size:0.58rem; font-weight:700; text-transform:uppercase; letter-spacing:1px; padding:2px 7px; border-radius:3px; border:1px solid #ddd; color:#666; background:#fff; }
+
+/* ── RULE BOX ── */
+.rule-box {
+  background:var(--black); color:#fff; border-radius:8px;
+  padding:14px 18px; margin-bottom:24px;
+  display:flex; align-items:center; gap:14px;
+}
+.rule-icon { font-family:'Bebas Neue',sans-serif; font-size:2rem; color:var(--yellow); flex-shrink:0; line-height:1; }
+.rule-title { font-family:'Bebas Neue',sans-serif; font-size:1rem; letter-spacing:1px; color:var(--yellow); margin-bottom:3px; }
+.rule-desc { font-size:0.73rem; color:#ccc; line-height:1.4; }
+
+/* ── QUARTERLY GRID ── */
+.q-grid { display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:8px; margin-bottom:24px; }
+.q-card { border:1.5px solid var(--border); border-radius:6px; overflow:hidden; text-align:center; }
+.q-top { font-family:'Bebas Neue',sans-serif; font-size:1.1rem; letter-spacing:1px; padding:8px; }
+.q-body { padding:10px; font-size:0.72rem; color:#555; line-height:1.5; }
+.q-body strong { color:var(--black); }
+
+/* ── TOOLS TABLE ── */
+.tools-table { width:100%; border-collapse:collapse; margin-bottom:24px; font-size:0.78rem; }
+.tools-table th { background:var(--black); color:#fff; font-family:'Bebas Neue',sans-serif; letter-spacing:1.5px; font-size:0.84rem; padding:9px 14px; text-align:left; font-weight:400; }
+.tools-table td { padding:9px 14px; border-bottom:1px solid #eee; vertical-align:top; line-height:1.4; }
+.tools-table tr:nth-child(even) td { background:#f8f8f8; }
+.tools-table td:first-child { font-weight:700; color:var(--black); white-space:nowrap; }
+.tools-table td:last-child { color:#555; }
+
+/* ── SNAP CARDS (role snapshot) ── */
+.snap-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-bottom:24px; }
+.snap-card { border:2px solid var(--black); border-radius:6px; padding:12px 14px; }
+.snap-label { font-size:0.58rem; text-transform:uppercase; letter-spacing:2px; font-weight:700; color:#888; margin-bottom:4px; }
+.snap-val { font-family:'Bebas Neue',sans-serif; font-size:1.2rem; letter-spacing:1px; }
+.snap-sub { font-size:0.7rem; margin-top:3px; }
+.snap-card.sy { background:var(--yellow); }
+.snap-card.sy .snap-val { color:var(--black); }
+.snap-card.sy .snap-sub { color:#444; }
+.snap-card.sd { background:var(--black); }
+.snap-card.sd .snap-val { color:var(--yellow); }
+.snap-card.sd .snap-sub { color:#888; }
+.snap-card.sw { background:#fff; }
+.snap-card.sw .snap-val { color:var(--black); }
+.snap-card.sw .snap-sub { color:#666; }
+
+/* ── WHY BLOCK ── */
+.why-block { background:var(--black); border-radius:10px; padding:24px 28px; margin-bottom:28px; }
+.why-lbl { font-size:0.6rem; text-transform:uppercase; letter-spacing:3px; color:#666; font-weight:700; margin-bottom:8px; }
+.why-title { font-family:'Bebas Neue',sans-serif; font-size:1.6rem; letter-spacing:2px; color:var(--yellow); margin-bottom:14px; line-height:1; }
+.why-body { font-size:0.81rem; color:#ccc; line-height:1.7; }
+.why-body p { margin-bottom:10px; }
+.why-body p:last-child { margin-bottom:0; }
+.why-body strong { color:#fff; }
+
+/* ── FORD BONUS CARDS ── */
+.bonus-grid2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:22px; }
+.bc { border:2px solid var(--black); border-radius:8px; padding:14px 16px; }
+.bc.bc-l { background:#fff; }
+.bc.bc-d { background:var(--black); }
+.bc-lbl { font-size:0.58rem; text-transform:uppercase; letter-spacing:2px; font-weight:700; color:#888; margin-bottom:5px; }
+.bc-title { font-family:'Bebas Neue',sans-serif; font-size:1.1rem; letter-spacing:1px; line-height:1.2; margin-bottom:7px; }
+.bc.bc-l .bc-title { color:var(--black); }
+.bc.bc-d .bc-title { color:var(--yellow); }
+.bc-body { font-size:0.73rem; line-height:1.5; }
+.bc.bc-l .bc-body { color:#555; }
+.bc.bc-d .bc-body { color:#aaa; }
+
+/* ── FORD CALC BOX ── */
+.calc-box { border:2px solid var(--black); border-radius:8px; overflow:hidden; margin-bottom:22px; }
+.calc-hd { background:var(--black); padding:10px 16px; font-family:'Bebas Neue',sans-serif; font-size:0.95rem; letter-spacing:2px; color:var(--yellow); }
+.calc-body { padding:14px 16px; background:#f8f8f8; font-size:0.77rem; color:#444; line-height:1.7; }
+.calc-body strong { color:var(--black); }
+
+/* ── DAILY ROUTINE SPECIFIC ── */
+.dr-nonneg { display:grid; grid-template-columns:1fr; gap:0; margin-bottom:24px; border:2px solid var(--black); border-radius:8px; overflow:hidden; }
+.dr-card { padding:14px 18px; border-bottom:1px solid rgba(0,0,0,0.1); display:flex; align-items:center; gap:14px; }
+.dr-card:last-child { border-bottom:none; }
+.dr-card.dr-yellow { background:var(--yellow); }
+.dr-card.dr-dark { background:var(--black); }
+.dr-num { font-family:'Bebas Neue',sans-serif; font-size:2.5rem; line-height:1; flex-shrink:0; width:44px; text-align:center; }
+.dr-card.dr-yellow .dr-num { color:var(--black); }
+.dr-card.dr-dark .dr-num { color:var(--yellow); }
+.dr-text {}
+.dr-title { font-weight:700; font-size:0.88rem; margin-bottom:3px; }
+.dr-card.dr-yellow .dr-title { color:var(--black); }
+.dr-card.dr-dark .dr-title { color:#fff; }
+.dr-sub { font-size:0.73rem; line-height:1.4; }
+.dr-card.dr-yellow .dr-sub { color:#444; }
+.dr-card.dr-dark .dr-sub { color:#aaa; }
+
+@media (max-width: 900px) {
+  .sidebar { width:220px; }
+  .main { margin-left:220px; }
+  .hero { padding:40px 36px; }
+  .section { padding:36px; }
+  .nn-grid, .two-col, .threshold, .bonus-grid2, .q-grid, .snap-grid, .principles { grid-template-columns:1fr; }
+  .resp-banner { grid-template-columns:1fr; }
+  .timing-banner { flex-direction:column; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ SIDEBAR ══ -->
+<nav class="sidebar">
+  <div class="sidebar-brand">
+    <div class="brand-name">Beagle Electric</div>
+    <div class="brand-sub">Operations Manual v1.0</div>
+  </div>
+
+  <div class="nav-section-label">Introduction</div>
+  <a href="#intro" class="nav-item active"><span class="nav-num">★</span> Why We Do This</a>
+
+  <div class="nav-section-label">Field Crew</div>
+  <a href="#daily" class="nav-item"><span class="nav-num">1</span> Daily Routine</a>
+  <a href="#comms" class="nav-item"><span class="nav-num">2</span> Crew Communication</a>
+  <a href="#crew-parts" class="nav-item"><span class="nav-num">3</span> Crew Parts Ordering</a>
+
+  <div class="nav-section-label">Darryl</div>
+  <a href="#darryl-parts" class="nav-item"><span class="nav-num">4</span> Parts Ordering SOP</a>
+
+  <div class="nav-section-label">Cole & Darryl</div>
+  <a href="#quoting" class="nav-item"><span class="nav-num">5</span> Quoting Process</a>
+
+  <div class="nav-section-label">Ford</div>
+  <a href="#ford-daily" class="nav-item"><span class="nav-num">6</span> Daily Schedule</a>
+  <a href="#ford-weekly" class="nav-item"><span class="nav-num">7</span> Weekly Reports</a>
+  <a href="#ford-monthly" class="nav-item"><span class="nav-num">8</span> Monthly Schedule</a>
+  <a href="#invoicing" class="nav-item"><span class="nav-num">9</span> Invoicing Process</a>
+  <a href="#bonus" class="nav-item"><span class="nav-num">10</span> Bonus Program</a>
+
+  <div class="sidebar-footer">
+    Updated by Ford — Thursdays<br>
+    beagleelectric.ca · 403-783-0552
+  </div>
+</nav>
+
+<!-- ══ MAIN ══ -->
+<main class="main">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">Beagle Electric 2023 Ltd. — Internal Document</div>
+  <div class="hero-title">Operations<br><span>Manual</span></div>
+  <div class="hero-desc">Standard operating procedures, communication standards, and business processes for the Beagle Electric team. This is how we run — every day, every job, every person.</div>
+  <div class="hero-pills">
+    <div class="hero-pill active">Version 1.0</div>
+    <div class="hero-pill">May 2026</div>
+    <div class="hero-pill">Rimbey, Alberta</div>
+    <div class="hero-pill">Confidential</div>
+  </div>
+</div>
+
+<!-- ══ INTRO ══ -->
+<section class="section" id="intro">
+  <div class="section-header">
+    <div class="section-num">★</div>
+    <div class="section-meta">
+      <div class="section-label">Introduction</div>
+      <div class="section-title">Why We Do This</div>
+      <div class="section-who">For everyone on the team</div>
+    </div>
+  </div>
+
+  <div class="why-block">
+    <div class="why-lbl">A Message From Ownership</div>
+    <div class="why-title">Why This Manual Exists</div>
+    <div class="why-body">
+      <p>Beagle Electric is a small company doing real work in central Alberta. Every job we take on, every hour we put in, and every part we order either makes us money or costs us money. The difference between a profitable company and one that struggles isn't talent — it's <strong>process</strong>. It's whether the right information gets to the right person at the right time, every single day.</p>
+      <p>This manual exists because we want everyone on the team to understand exactly how we operate — not just what their job is, but how their piece connects to everyone else's. When Ford sends the morning report and Darryl confirms his parts order and Cole responds to the daily check-in and the crew updates their materials in Jobber — all of that adds up to clean numbers, accurate invoices, and a business that can pay good wages and reward the people who show up.</p>
+      <p><strong>These aren't rules for the sake of rules.</strong> Every process in this manual exists because skipping it costs us money. A missing receipt means we can't bill that material. A quote that sits for two weeks means someone else got the job. Hours logged to the wrong customer mean we can't see if a job was profitable. Small gaps, repeated daily, turn into thousands of dollars of lost revenue over a year.</p>
+      <p>We want this business to grow. We want to keep good people, pay fair wages, and run bonuses that actually mean something. That only happens when the whole team follows the system — together.</p>
+    </div>
+  </div>
+
+  <div class="sub-section-title">How We Stay Profitable — The Basics</div>
+  <div class="principles">
+    <div class="pc"><div class="pc-num">01</div><div class="pc-title">Every Hour Gets Billed to the Right Job</div><div class="pc-body">Unbillable time costs us money. When hours are tracked accurately, we know exactly what each job costs and whether we priced it right.</div></div>
+    <div class="pc"><div class="pc-num">02</div><div class="pc-title">Every Part Gets Tied to a Job</div><div class="pc-body">Materials we buy but can't bill disappear from our margin. Customer name on every order. Non-ECOL receipts into Dext or Jobber notes. No exceptions.</div></div>
+    <div class="pc"><div class="pc-num">03</div><div class="pc-title">Quotes Go Out Fast</div><div class="pc-body">The company that quotes fastest usually gets the job. A quote sitting in someone's head is revenue we're leaving on the table for a competitor.</div></div>
+    <div class="pc"><div class="pc-num">04</div><div class="pc-title">Invoices Go Out on Time</div><div class="pc-body">We do the work, we send the invoice. Progress billing on the 20th every month. Cash flow keeps the lights on and the crew paid.</div></div>
+    <div class="pc"><div class="pc-num">05</div><div class="pc-title">Communication Keeps the Schedule Moving</div><div class="pc-body">Ford can only dispatch accurately with good information from the field. A two-sentence WhatsApp message from you keeps the whole day running right.</div></div>
+    <div class="pc dark"><div class="pc-num">06</div><div class="pc-title">Clean Numbers = Real Decisions</div><div class="pc-body">Greg needs accurate monthly numbers to make good calls on pricing, hiring, and growth. Every process in this manual feeds that data.</div></div>
+  </div>
+
+  <div class="bonus-block">
+    <div class="bonus-icon">$</div>
+    <div>
+      <div class="bt-title">The Bonus — How It Works & Why It Matters</div>
+      <div class="bt-body">Every team member — Greg, Cole, Darryl, Wyatt, Dylan, and Ford — participates in a quarterly profit-sharing bonus. Bonuses are paid on profit above a 10% margin threshold. The better the business performs, the bigger the pool. When everyone follows the process, the numbers are clean, the invoices go out, and the profit is real. That's what gets shared. The system in this manual is directly connected to what lands in your pocket at the end of each quarter.</div>
+    </div>
+  </div>
+
+  <div class="sub-section-title">What's in This Manual</div>
+  <table class="toc">
+    <thead><tr><th style="width:40px;">#</th><th>Document</th><th style="width:28%;">Who It's For</th><th style="width:14%;">Topic</th></tr></thead>
+    <tbody>
+      <tr><td><span class="toc-num">1</span></td><td><div class="toc-title">Daily Routine</div><div class="toc-sub">The standard field day — clocking in, on-site work, materials, clocking out</div></td><td>All Field Crew</td><td><span class="toc-tag">Field</span></td></tr>
+      <tr><td><span class="toc-num">2</span></td><td><div class="toc-title">Crew Communication</div><div class="toc-sub">How to respond to Ford, update the schedule, and keep dispatch accurate</div></td><td>Cole, Darryl, Wyatt, Dylan</td><td><span class="toc-tag">Comms</span></td></tr>
+      <tr><td><span class="toc-num">3</span></td><td><div class="toc-title">Crew Parts Ordering</div><div class="toc-sub">How crew members request or order their own parts mid-day</div></td><td>All Field Crew</td><td><span class="toc-tag">Parts</span></td></tr>
+      <tr><td><span class="toc-num">4</span></td><td><div class="toc-title">Parts Ordering SOP — Darryl</div><div class="toc-sub">The 30-minute morning routine for ordering and tracking all parts</div></td><td>Darryl</td><td><span class="toc-tag">Parts</span></td></tr>
+      <tr><td><span class="toc-num">5</span></td><td><div class="toc-title">Quoting Process</div><div class="toc-sub">How quote requests flow from intake to sent — 2 days target, 1 week max</div></td><td>Cole, Darryl</td><td><span class="toc-tag">Quoting</span></td></tr>
+      <tr><td><span class="toc-num">6–9</span></td><td><div class="toc-title">Ford's SOP — Dispatch Coordinator</div><div class="toc-sub">Daily schedule, weekly reports, monthly calendar, invoicing process</div></td><td>Ford + All Crew (reference)</td><td><span class="toc-tag">Ops</span></td></tr>
+      <tr><td><span class="toc-num">10</span></td><td><div class="toc-title">Quarterly Bonus Program</div><div class="toc-sub">How bonuses are calculated, who qualifies, and when they're paid</div></td><td>Everyone</td><td><span class="toc-tag">Bonus</span></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ══ 1. DAILY ROUTINE ══ -->
+<section class="section" id="daily">
+  <div class="section-header">
+    <div class="section-num">1</div>
+    <div class="section-meta">
+      <div class="section-label">Field Crew</div>
+      <div class="section-title">Daily Routine</div>
+      <div class="section-who">For everyone on the tools <span>All Crew</span></div>
+    </div>
+  </div>
+  <div class="intro-blurb">Two things that cannot slip no matter how busy the day gets: clock into the right job, and update your materials before you leave site. Everything else flows from these two habits.</div>
+  <div class="nn-grid">
+    <div class="nn-card yellow"><div class="nn-label">Non-Negotiable #1</div><div class="nn-title">Clock Into the Right Job in TSheets — Every Time</div><div class="nn-sub">Wrong job = wrong billing = we can't see if the job was profitable. Takes 10 seconds. Do it before you touch a tool.</div></div>
+    <div class="nn-card dark"><div class="nn-label">Non-Negotiable #2</div><div class="nn-title">Update Materials in Jobber Before You Leave Site</div><div class="nn-sub">Not from memory later. While you're still there. Every material used, logged to the correct job. This is how we bill it.</div></div>
+  </div>
+  <div class="sub-section-title">The Day From Start to Finish</div>
+  <div class="steps">
+    <div class="step hl"><div class="step-num">1</div><div class="step-content"><div class="step-text"><div class="step-title">Morning Huddle — 8:00 AM at the Shop</div><div class="step-desc">Show up. Read Ford's morning report. Know what job you're on today. Tell Darryl if you need any parts. Ask any questions before you leave the yard.</div><div class="tags"><span class="tag tag-wp">WhatsApp Report</span></div></div></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-text"><div class="step-title">Clock Into Your Job in TSheets</div><div class="step-desc">Before you leave the shop or as soon as you arrive on site — clock into the correct job. Not the last job. Not a generic code. The right job.</div><div class="tags"><span class="tag tag-ts">TSheets</span></div></div></div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-text"><div class="step-title">Load Up and Head Out</div><div class="step-desc">Grab the parts Darryl has ready. Confirm anything you're waiting on. Hit the road.</div></div></div></div>
+    <div class="step hl"><div class="step-num">4</div><div class="step-content"><div class="step-text"><div class="step-title">On Site — Do the Work</div><div class="step-desc">If anything changes mid-job — scope creep, extra materials needed, permit required — message Ford immediately. Don't wait until end of day.</div><div class="tags"><span class="tag tag-wp">Message Ford</span></div></div></div></div>
+    <div class="step hl"><div class="step-num">5</div><div class="step-content"><div class="step-text"><div class="step-title">Before You Leave Site — Update Materials in Jobber</div><div class="step-desc">Every material used on this job, entered into Jobber against this job, before your boots leave the property. This is non-negotiable.</div><div class="tags"><span class="tag tag-jobber">Jobber</span><span class="tag tag-key">Before You Leave</span></div></div></div></div>
+    <div class="step"><div class="step-num">6</div><div class="step-content"><div class="step-text"><div class="step-title">Clock Out of TSheets</div><div class="step-desc">Clock out of the job when you're done on site. If you're moving to another job, clock into that one immediately.</div><div class="tags"><span class="tag tag-ts">TSheets</span></div></div></div></div>
+    <div class="step"><div class="step-num">7</div><div class="step-content"><div class="step-text"><div class="step-title">End of Day — Flag Tomorrow's Needs</div><div class="step-desc">If tomorrow looks different from what's in Jobber, message Ford before 4:30 PM. If you need parts or a permit first thing, tell Darryl or Ford today — not tomorrow morning when it's too late.</div><div class="tags"><span class="tag tag-wp">Message Ford</span></div></div></div></div>
+  </div>
+</section>
+
+<!-- ══ 2. CREW COMMUNICATION ══ -->
+<section class="section" id="comms">
+  <div class="section-header">
+    <div class="section-num">2</div>
+    <div class="section-meta">
+      <div class="section-label">Field Crew</div>
+      <div class="section-title">Crew Communication</div>
+      <div class="section-who">Cole, Darryl, Wyatt & Dylan <span>Field Crew</span></div>
+    </div>
+  </div>
+  <div class="intro-blurb">Ford can only dispatch and schedule accurately if he knows what's happening in the field. These communication habits take less than two minutes a day — and they're what keep the whole system running smoothly.</div>
+  <div class="nn-grid">
+    <div class="nn-card yellow"><div class="nn-label">Non-Negotiable #1</div><div class="nn-title">Reply to Ford's Morning Check-In — Within the First Hour</div><div class="nn-sub">He messages you every morning asking what you're on today. Reply before 9 AM. Voice memo, text, whatever is fastest. If you don't know yet, say so and follow up in 10 minutes.</div></div>
+    <div class="nn-card dark"><div class="nn-label">Non-Negotiable #2</div><div class="nn-title">If Your Schedule Changes — Tell Ford Before It Happens</div><div class="nn-sub">Job running long, moving to a different site, day got shuffled — Ford needs to know so dispatch stays accurate. A quick message takes 10 seconds.</div></div>
+  </div>
+  <div class="sub-section-title">Every Morning</div>
+  <div class="steps">
+    <div class="step hl"><div class="step-num">1</div><div class="step-content"><div class="step-text"><div class="step-title">Read Ford's Morning Report on WhatsApp</div><div class="step-desc">Ford sends the crew report by 7:50 AM. Read it before the huddle — it has your job info, quote follow-ups, and schedule notes for the day.</div><div class="tags"><span class="tag tag-wp">WhatsApp</span></div></div></div></div>
+    <div class="step hl"><div class="step-num">2</div><div class="step-content"><div class="step-text"><div class="step-title">Reply to Ford's Personal Message — Before 9 AM</div><div class="step-desc">Ford messages Cole and Darryl individually: "Hey, what are you working on today? Anything you need me to update in Jobber?" Reply by voice memo or text — fast is fine. Don't leave him waiting.</div><div class="tags"><span class="tag tag-wp">WhatsApp</span><span class="tag tag-timer">By 9 AM</span></div></div></div></div>
+  </div>
+  <div class="example-box">
+    <div class="ex-label">What a Good Reply Looks Like</div>
+    <div class="ex-row"><span class="ex-who">Ford:</span><span class="ex-msg">"Hey Darryl, what are you working on today? Anything you need me to update in Jobber?"</span></div>
+    <div class="ex-row"><span class="ex-who">Darryl:</span><span class="ex-msg">"Morning — finishing up at Mark Hallink today, done by 2. Then heading to Wayne Hayes. Can you make sure Wayne Hayes is scheduled for this afternoon?"</span></div>
+    <div class="ex-row" style="margin-top:8px;"><span class="ex-who">Ford:</span><span class="ex-msg">"Hey Cole, what are you on today?"</span></div>
+    <div class="ex-row"><span class="ex-who">Cole:</span><span class="ex-msg">"Not 100% sure yet — give me 10 minutes once I check in with the client."</span></div>
+  </div>
+  <div class="sub-section-title">Response Time Expectations</div>
+  <div class="resp-banner">
+    <div class="rb-c rb-c1"><div class="rb-lbl">Morning Check-In</div><div class="rb-val">By 9 AM</div><div class="rb-sub2">Every day. Voice memo or text.</div></div>
+    <div class="rb-c rb-c2"><div class="rb-lbl">Mid-Day Change</div><div class="rb-val">Same Hour</div><div class="rb-sub2">If your day changes, Ford needs to know before the next job starts.</div></div>
+    <div class="rb-c rb-c3"><div class="rb-lbl">Night-Before Update</div><div class="rb-val">By 4:30</div><div class="rb-sub2">If tomorrow looks different, tell Ford before he finishes his day.</div></div>
+  </div>
+  <div class="sub-section-title">Night Before & Mid-Day</div>
+  <div class="steps">
+    <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-text"><div class="step-title">If Tomorrow Has Changed — Message Ford Before 4:30 PM</div><div class="step-desc">If you know your schedule tomorrow looks different from what's in Jobber, shoot Ford a quick WhatsApp before he finishes his day. He'll update the schedule so the morning report is accurate.</div><div class="tags"><span class="tag tag-wp">WhatsApp</span></div></div></div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-text"><div class="step-title">Permits or Parts Needed Tomorrow — Flag It Today</div><div class="step-desc">Don't wait until morning. Tell Ford or Darryl today — they can sort it so it's ready when you need it, not after you're already on site waiting.</div><div class="tags"><span class="tag tag-wp">WhatsApp</span></div></div></div></div>
+    <div class="step hl"><div class="step-num">5</div><div class="step-content"><div class="step-text"><div class="step-title">Job Running Long or Moving Sites Mid-Day — Tell Ford</div><div class="step-desc">Anything that changes your schedule — a quick WhatsApp to Ford is all it takes. He updates Jobber and keeps the schedule current. Without this, he's dispatching on bad information.</div><div class="tags"><span class="tag tag-wp">WhatsApp</span><span class="tag tag-jobber">Jobber</span></div></div></div></div>
+  </div>
+  <div class="rule-box"><div class="rule-icon">!</div><div><div class="rule-title">Ford Can Only Work With What You Give Him</div><div class="rule-desc">The morning report, the schedule, the dispatch — all of it is only as good as the information coming in from the field. A two-sentence WhatsApp message from you keeps the whole operation running accurately. Going quiet costs everyone time.</div></div></div>
+</section>
+
+<!-- ══ 3. CREW PARTS ══ -->
+<section class="section" id="crew-parts">
+  <div class="section-header">
+    <div class="section-num">3</div>
+    <div class="section-meta">
+      <div class="section-label">Field Crew</div>
+      <div class="section-title">Crew Parts Ordering</div>
+      <div class="section-who">All field crew <span>Everyone</span></div>
+    </div>
+  </div>
+  <div class="intro-blurb">Every part ordered needs to be tied to a job — every time, no exceptions. ECOL invoices flow automatically as long as the customer name is on the PO. Everything else needs a paper trail.</div>
+  <div class="nn-grid">
+    <div class="nn-card yellow"><div class="nn-label">The One Rule That Covers Everything</div><div class="nn-title">Customer Name = Purchase Order — Every Order, Every Supplier</div><div class="nn-sub">ECOL, electrical suppliers, hardware store, anywhere. Customer name on every order. No name = no billing = we eat the cost.</div></div>
+    <div class="nn-card dark"><div class="nn-label">Non-ECOL Receipts</div><div class="nn-title">Write Job Name On It — Upload to Dext or Jobber Notes</div><div class="nn-sub">ECOL is automatic. Any other supplier: write the job name on the receipt, photo it, and upload to Dext or Jobber job notes. Same day.</div></div>
+  </div>
+  <div class="sub-section-title">Morning Meeting — Tell Darryl What You Need</div>
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-text"><div class="step-title">Call Out Your Parts at the 8 AM Huddle</div><div class="step-desc">Tell Darryl what you need and which job it's for. He writes it down and places the order before he hits the road. Keep it to the day's needs.</div></div></div></div>
+    <div class="step hl"><div class="step-num">2</div><div class="step-content"><div class="step-text"><div class="step-title">Confirm on WhatsApp When Darryl Posts the Summary</div><div class="step-desc">Darryl posts what he heard to the crew group after the meeting. If something's wrong — wrong quantity, wrong job, missing item — fix it in the next 10 minutes before he orders.</div><div class="tags"><span class="tag tag-wp">WhatsApp</span></div></div></div></div>
+  </div>
+  <div class="sub-section-title">Mid-Day — Two Ways to Get Parts</div>
+  <div class="two-col">
+    <div class="path-card light">
+      <div class="path-label">Option A — Fastest</div>
+      <div class="path-title">Message Darryl on WhatsApp</div>
+      <ol class="path-steps">
+        <li><span class="li-n">1</span>Send job name + parts needed to Darryl on WhatsApp</li>
+        <li><span class="li-n">2</span>Darryl places the order — customer name as PO</li>
+        <li><span class="li-n">3</span>Darryl confirms back when ordered with ETA</li>
+        <li><span class="li-n">4</span>Non-ECOL receipt into Dext or Jobber notes</li>
+      </ol>
+    </div>
+    <div class="path-card dark">
+      <div class="path-label">Option B — If You Order Yourself</div>
+      <div class="path-title">Same Rules Apply</div>
+      <ol class="path-steps">
+        <li><span class="li-n">1</span>Order on ECOL or supplier — customer name as PO</li>
+        <li><span class="li-n">2</span>Message Darryl so he knows what you ordered</li>
+        <li><span class="li-n">3</span>Non-ECOL receipt: write job name, upload to Dext or Jobber notes</li>
+        <li><span class="li-n">4</span>Add materials to the job in Jobber before you leave site</li>
+      </ol>
+    </div>
+  </div>
+  <div class="rule-box"><div class="rule-icon">!</div><div><div class="rule-title">ECOL = Automatic. Non-ECOL = Your Responsibility.</div><div class="rule-desc">ECOL invoices flow straight to Dext on their own — as long as the customer name is on the PO, nothing else is needed. For any other supplier — write the job name on the receipt and upload it to Dext or Jobber job notes. We cannot bill what we can't find.</div></div></div>
+</section>
+
+<!-- ══ 4. DARRYL PARTS ══ -->
+<section class="section" id="darryl-parts">
+  <div class="section-header">
+    <div class="section-num">4</div>
+    <div class="section-meta">
+      <div class="section-label">Darryl</div>
+      <div class="section-title">Parts Ordering SOP</div>
+      <div class="section-who">Morning routine — 30 minutes max <span>Darryl</span></div>
+    </div>
+  </div>
+  <div class="intro-blurb">This routine runs every morning in 30 minutes or less. ECOL invoices are handled automatically — they flow straight through. Everything else needs a paper trail: customer name on every order, and any non-ECOL receipt uploaded to Dext or Jobber with the job name on it.</div>
+  <div class="nn-grid">
+    <div class="nn-card yellow"><div class="nn-label">Non-Negotiable #1</div><div class="nn-title">Customer Name on Every Order — No Exceptions</div><div class="nn-sub">Every ECOL and supplier order uses the customer name as the PO. This is how costs get matched to jobs. If there's no name on it, it's lost money.</div></div>
+    <div class="nn-card dark"><div class="nn-label">Non-Negotiable #2</div><div class="nn-title">Non-ECOL Receipts — Job Name On It, Into Dext or Jobber</div><div class="nn-sub">ECOL is automatic — no action needed. Any other supplier: write the job name on the receipt, photo it, and upload to Dext or directly into the job notes in Jobber. If unsure, send it to Ford.</div></div>
+  </div>
+  <div class="sub-section-title">Morning Routine — Complete by 8:30 AM</div>
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-text"><div class="step-title">8:00 AM Huddle — Listen for Parts Needs</div><div class="step-desc">During the morning meeting, ask the crew: "Anyone need parts today?" Write down what each person needs and which job it's for. Don't rely on memory.</div></div></div></div>
+    <div class="step hl"><div class="step-num">2</div><div class="step-content"><div class="step-text"><div class="step-title">Confirm the List on WhatsApp</div><div class="step-desc">After the meeting, post a quick summary to the crew WhatsApp group: what you heard, which job it's for. Give the crew 10 minutes to correct anything before you order.</div><div class="tags"><span class="tag tag-wp">WhatsApp</span></div></div></div></div>
+    <div class="step hl"><div class="step-num">3</div><div class="step-content"><div class="step-text"><div class="step-title">Place Orders — Customer Name as PO on Every Line</div><div class="step-desc">Order on ECOL first, then other suppliers as needed. Every single order uses the customer name as the PO reference. Multiple customers = separate orders.</div><div class="tags"><span class="tag tag-ecol">ECOL</span><span class="tag tag-key">PO = Customer Name</span></div></div></div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-text"><div class="step-title">Flag Anything Unavailable or Backordered</div><div class="step-desc">If a part can't be sourced same day, message Ford and the relevant crew member immediately so the job schedule can adjust. Don't wait until end of day.</div><div class="tags"><span class="tag tag-wp">WhatsApp</span></div></div></div></div>
+    <div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-text"><div class="step-title">Head Out to Your Jobs</div><div class="step-desc">Morning parts routine is done. You're on the tools. Parts pickup or delivery happens as orders arrive — coordinate with Ford on timing.</div></div></div></div>
+  </div>
+  <div class="rule-box"><div class="rule-icon">!</div><div><div class="rule-title">ECOL = Automatic. Everything Else = Your Job.</div><div class="rule-desc">ECOL invoices flow straight to Dext automatically — as long as the customer name is on the PO, you're done. For any other supplier — grab the receipt, write the job name on it, and upload to Dext or Jobber job notes. We cannot bill what we can't prove, and Ford can't find it if it's not in the system.</div></div></div>
+  <div class="sub-section-title">Mid-Day — If Crew Needs Parts After the Morning Order</div>
+  <div class="steps">
+    <div class="step"><div class="step-num">6</div><div class="step-content"><div class="step-text"><div class="step-title">Crew Messages Darryl on WhatsApp</div><div class="step-desc">Job name + what's needed. Darryl orders it and confirms back. Customer name on the PO as always.</div><div class="tags"><span class="tag tag-wp">WhatsApp</span><span class="tag tag-ecol">ECOL</span></div></div></div></div>
+    <div class="step"><div class="step-num">7</div><div class="step-content"><div class="step-text"><div class="step-title">If Crew Orders Themselves — Same Rules Apply</div><div class="step-desc">Customer name as PO always. ECOL is automatic. Any non-ECOL receipt — write the job name on it and upload to Dext or Jobber job notes. Message Darryl so he knows what came in.</div><div class="tags"><span class="tag tag-key">PO = Customer Name</span></div></div></div></div>
+  </div>
+</section>
+
+<!-- ══ 5. QUOTING ══ -->
+<section class="section" id="quoting">
+  <div class="section-header">
+    <div class="section-num">5</div>
+    <div class="section-meta">
+      <div class="section-label">Cole & Darryl</div>
+      <div class="section-title">Quoting Process</div>
+      <div class="section-who">From request to sent <span>Cole & Darryl</span></div>
+    </div>
+  </div>
+  <div class="intro-blurb">Every quote request gets logged, assigned, assessed, and sent. Two numbers is all it takes — hours needed and parts needed. Don't overcomplicate it. Speed wins jobs.</div>
+  <div class="nn-grid">
+    <div class="nn-card yellow"><div class="nn-label">Non-Negotiable #1</div><div class="nn-title">Every Request Gets Into Jobber — Same Day It Comes In</div><div class="nn-sub">Phone, email, Facebook, word of mouth — doesn't matter. Ford logs it in Jobber as a quote request the day it arrives. Nothing sits in someone's head.</div></div>
+    <div class="nn-card dark"><div class="nn-label">Non-Negotiable #2</div><div class="nn-title">Every Quote Out the Door Within One Week</div><div class="nn-sub">One week is the hard maximum. Target is two days. A quote sitting unsent is a job we're not getting.</div></div>
+  </div>
+  <div class="sub-section-title">The Process — Four Steps</div>
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-text"><div class="step-title">Request Comes In — Ford Logs It in Jobber</div><div class="step-desc">Any source — phone, email, Facebook, referral, walk-in. Ford enters it as a quote request in Jobber the same day and flags it in the next morning report.</div><div class="tags"><span class="tag tag-jobber">Jobber</span></div></div></div></div>
+    <div class="step hl"><div class="step-num">2</div><div class="step-content"><div class="step-text"><div class="step-title">Claim It — Cole or Darryl Says "I've Got This One"</div><div class="step-desc">At the morning meeting or on WhatsApp — whoever is taking it claims it out loud. If nobody claims it within 24 hours, Ford flags it again. Unclaimed quotes don't get sent.</div><div class="tags"><span class="tag tag-wp">WhatsApp</span></div></div></div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-text"><div class="step-title">Assess the Job — Two Numbers Is All You Need</div><div class="step-desc">Review blueprints, call the customer, or visit the site. Come out with: hours needed and parts needed. That's the whole quote. Don't overthink it.</div><div class="tags"><span class="tag tag-key">Hours + Parts</span></div></div></div></div>
+    <div class="step hl"><div class="step-num">4</div><div class="step-content"><div class="step-text"><div class="step-title">Build It and Send It — Pick Your Path Below</div><div class="step-desc">Two options depending on how busy you are. Either way, the quote goes out.</div><div class="tags"><span class="tag tag-jobber">Jobber</span><span class="tag tag-timer">Send It</span></div></div></div></div>
+  </div>
+  <div class="sub-section-title">Step 4 — Two Ways to Send the Quote</div>
+  <div class="two-col">
+    <div class="path-card light">
+      <div class="path-label">Path A — You Have 10 Minutes</div>
+      <div class="path-title">Build It Yourself in Jobber</div>
+      <ol class="path-steps">
+        <li><span class="li-n">1</span>Open the quote request in Jobber</li>
+        <li><span class="li-n">2</span>Add hours — use standard labour rates</li>
+        <li><span class="li-n">3</span>Add parts from your list</li>
+        <li><span class="li-n">4</span>Hit send to the customer</li>
+        <li><span class="li-n">5</span>Done — update the status in Jobber</li>
+      </ol>
+    </div>
+    <div class="path-card dark">
+      <div class="path-label">Path B — You're Busy on the Tools</div>
+      <div class="path-title">Hand Off to Ford</div>
+      <ol class="path-steps">
+        <li><span class="li-n">1</span>Scribble or voice memo your hours and parts list</li>
+        <li><span class="li-n">2</span>Send to Ford on WhatsApp — job name + hours + parts</li>
+        <li><span class="li-n">3</span>Ford builds it in Jobber and sends to customer</li>
+        <li><span class="li-n">4</span>Ford updates the status and flags it as sent</li>
+      </ol>
+    </div>
+  </div>
+  <div class="sub-section-title">Timing Standards</div>
+  <div class="timing-banner">
+    <div class="t-cell tc1"><div class="t-label">Target</div><div class="t-val">2 Days</div><div class="t-sub">Aim for this every time. Fast quotes win jobs.</div></div>
+    <div class="t-cell tc2"><div class="t-label">Hard Maximum</div><div class="t-val">7 Days</div><div class="t-sub">One week. No exceptions. Use Path B if needed.</div></div>
+    <div class="t-cell tc3"><div class="t-label">Overdue</div><div class="t-val">Flagged</div><div class="t-sub">Ford flags anything past 7 days in the Friday report to Greg.</div></div>
+  </div>
+  <div class="rule-box"><div class="rule-icon">!</div><div><div class="rule-title">If You're Stuck — Use Path B, Not Nothing</div><div class="rule-desc">A quote sitting in your head while you're busy is a quote that doesn't get sent. Take two minutes to send Ford the hours and parts on WhatsApp. He builds it, it goes out, the clock stops. A rough quote sent is worth more than a perfect quote never sent.</div></div></div>
+</section>
+
+<!-- ══ 6. FORD DAILY ══ -->
+<section class="section" id="ford-daily">
+  <div class="section-header">
+    <div class="section-num">6</div>
+    <div class="section-meta">
+      <div class="section-label">Ford — Dispatch Coordinator</div>
+      <div class="section-title">Daily Schedule</div>
+      <div class="section-who">7:30 AM – 4:30 PM Alberta Time <span>Ford</span></div>
+    </div>
+  </div>
+  <div class="intro-blurb">Ford owns the daily schedule, morning communications, phone coverage, Jobber administration, invoicing, and monthly financial reporting. The crew counts on Ford for accurate information every morning. Greg counts on Ford for clean data every week and month.</div>
+  <div class="snap-grid">
+    <div class="snap-card sy"><div class="snap-label">Working Hours</div><div class="snap-val">7:30 AM – 4:30 PM</div><div class="snap-sub">Alberta time, Monday–Friday</div></div>
+    <div class="snap-card sd"><div class="snap-label">Reports To</div><div class="snap-val">Greg</div><div class="snap-sub">Weekly call Fridays 4:00 PM</div></div>
+    <div class="snap-card sw"><div class="snap-label">After 4:30 PM</div><div class="snap-val">RingCentral</div><div class="snap-sub">Auto-forwards to Greg until 6:00 PM</div></div>
+  </div>
+  <div class="sub-section-title">Daily Schedule</div>
+  <div class="time-block hl"><div class="tb-time">7:30 – 7:50 AM</div><div class="tb-body"><div class="tb-title">Morning Report Prep</div><div class="tb-desc">Log into Jobber, review active jobs and overnight messages. Build the day's morning report based on the daily theme (see Weekly Reports section). Have it ready to send by 7:50 AM.</div></div></div>
+  <div class="time-block hl"><div class="tb-time">7:50 AM</div><div class="tb-body"><div class="tb-title">Send Report + Personal Messages to Cole & Darryl</div><div class="tb-desc">Send morning report to crew WhatsApp group. Then send individual voice messages to Cole and Darryl: "Hey, what are you working on today? Anything you need me to update in Jobber?" Once they reply, post a crew status blurb confirming who is on what job.</div></div></div>
+  <div class="time-block"><div class="tb-time">8:00 – 9:00 AM</div><div class="tb-body"><div class="tb-title">Crew Support Window — Be Fully Available</div><div class="tb-desc">Fast replies only. Collect crew responses, update Jobber scheduling, handle immediate requests — permits, pricing, scheduling. Send the daily crew status blurb once responses are in.</div></div></div>
+  <div class="time-block"><div class="tb-time">9:00 – 10:00 AM</div><div class="tb-body"><div class="tb-title">Client Emails & Quote Follow-Ups</div><div class="tb-desc">Reply to outstanding client emails. Follow up on quotes per Tuesday report cadence. Send any requested information to clients or suppliers.</div></div></div>
+  <div class="time-block"><div class="tb-time">10:00 – 11:00 AM</div><div class="tb-body"><div class="tb-title">Jobber Admin Block</div><div class="tb-desc">Enter new jobs, update job statuses and notes, assign work to crew where scheduling allows. Flag anything requiring Greg or Cole's decision.</div></div></div>
+  <div class="time-block"><div class="tb-time">11:00 AM – 12:00 PM</div><div class="tb-body"><div class="tb-title">Job Costing & Invoicing</div><div class="tb-desc">Enter materials, labour hours, and costs per job accurately — this feeds the monthly P&L. Send invoices for completed work. Queue items for the 20th progress billing run.</div></div></div>
+  <div class="time-block"><div class="tb-time">12:00 – 1:00 PM</div><div class="tb-body"><div class="tb-title">Lunch / Buffer</div><div class="tb-desc">Flex time. Available for urgent calls but not scheduled for specific tasks.</div></div></div>
+  <div class="time-block"><div class="tb-time">1:00 – 2:30 PM</div><div class="tb-body"><div class="tb-title">Inbound Calls & Live Dispatch</div><div class="tb-desc">Primary phone window for client calls. Log all calls in Jobber. Handle permit pulls and supplier price checks from the field as they come in.</div></div></div>
+  <div class="time-block"><div class="tb-time">2:30 – 3:30 PM</div><div class="tb-body"><div class="tb-title">Permits, Supplier & Admin</div><div class="tb-desc">Pull permits using Cole's credentials — same day where possible. Supplier quotes and price checks. Paperwork and documentation. Thursday: Business Improvement slot.</div></div></div>
+  <div class="time-block"><div class="tb-time">3:30 – 4:00 PM</div><div class="tb-body"><div class="tb-title">Collections & Receivables Review</div><div class="tb-desc">Review all outstanding invoices. Send payment reminders. Log any client payment commitments. Flags feed into Thursday's report.</div></div></div>
+  <div class="time-block hl"><div class="tb-time">4:00 – 4:30 PM</div><div class="tb-body"><div class="tb-title">End of Day Wrap — Friday: Business Overview Report + Greg Call</div><div class="tb-desc">Update all Jobber entries. Build tomorrow's preliminary job list. Flag anything urgent. Friday only: send Business Overview Report to Greg before 4:00 PM, then join the standing call at 4:00 PM.</div></div></div>
+  <div class="time-block"><div class="tb-time">4:30 PM</div><div class="tb-body"><div class="tb-title">Forward Calls to Greg via RingCentral</div><div class="tb-desc">Confirm RingCentral is forwarding all inbound calls to Greg before signing off. Coverage runs to 6:00 PM.</div></div></div>
+</section>
+
+<!-- ══ 7. FORD WEEKLY ══ -->
+<section class="section" id="ford-weekly">
+  <div class="section-header">
+    <div class="section-num">7</div>
+    <div class="section-meta">
+      <div class="section-label">Ford — Dispatch Coordinator</div>
+      <div class="section-title">Weekly Reports</div>
+      <div class="section-who">Morning reports sent by 7:50 AM daily <span>Ford</span></div>
+    </div>
+  </div>
+  <div class="intro-blurb">Each weekday morning report follows a rotating theme. Reports are sent to the crew WhatsApp group by 7:50 AM. Keep them clean, brief, and scannable — the crew reads this on their phones at the start of the day.</div>
+  <div class="sub-section-title">Daily Morning Report Themes</div>
+  <div class="day-cards">
+    <div class="day-card"><div class="dc-day" style="background:#1B3A6B;">MON</div><div class="dc-body"><div class="dc-title">Active Jobs Report</div><ul class="dc-items"><li>New jobs that came in over the weekend or prior week</li><li>All existing jobs in progress — status, next step, who is assigned</li><li>Anything the crew needs to know to start the week</li></ul></div></div>
+    <div class="day-card"><div class="dc-day" style="background:#2E75B6;">TUE</div><div class="dc-body"><div class="dc-title">Quotes Report</div><ul class="dc-items"><li>Outstanding quotes not yet sent — what is holding them up</li><li>Quotes sent but not yet accepted — follow-up needed</li><li>Quotes that have gone cold — pursue or close?</li></ul></div></div>
+    <div class="day-card"><div class="dc-day" style="background:#1B3A6B;">WED</div><div class="dc-body"><div class="dc-title">Active Jobs Report</div><ul class="dc-items"><li>Mid-week refresh — same format as Monday</li><li>Flag anything stalled or needing a decision to keep moving</li><li>Note any scheduling changes for the back half of the week</li></ul></div></div>
+    <div class="day-card"><div class="dc-day" style="background:#5B8DB8;">THU</div><div class="dc-body"><div class="dc-title">Collections & Receivables Report</div><ul class="dc-items"><li>Outstanding invoices — who owes, how much, how long overdue</li><li>Invoices sent this week</li><li>Anything approaching or past 30, 60, or 90 days</li><li>Client payment promises or active arrangements</li></ul></div></div>
+    <div class="day-card"><div class="dc-day" style="background:#111;">FRI</div><div class="dc-body"><div class="dc-title">Jobs Report + Weekly Crew Wrap</div><ul class="dc-items"><li>Final job status for the week — what wraps up, what carries over</li><li>Parts or permits needed first thing Monday</li><li>Short crew note — wins, reminders, anything for the weekend</li></ul></div></div>
+  </div>
+  <div class="rule-box"><div class="rule-icon">T</div><div><div class="rule-title">Thursday — Business Improvement Slot (2:30–3:30 PM)</div><div class="rule-desc">Every Thursday afternoon is reserved for making the business better — not catch-up work. Update Jobber pricing, implement process improvements suggested by Greg or the crew, clean up job records, or work on tasks Greg has flagged. This time is protected.</div></div></div>
+  <div class="sub-section-title">Friday Business Overview Report — Due to Greg by 4:00 PM</div>
+  <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; margin-bottom:24px;">
+    <div style="border:1.5px solid var(--border); border-radius:6px; padding:12px 14px; background:#f8f8f8;"><div style="font-size:0.58rem; text-transform:uppercase; letter-spacing:1.5px; color:#888; font-weight:700; margin-bottom:5px;">Hours</div><div style="font-size:0.76rem; color:var(--black); line-height:1.5;">Total hours this week — billable vs non-billable by crew member</div></div>
+    <div style="border:1.5px solid var(--border); border-radius:6px; padding:12px 14px; background:#f8f8f8;"><div style="font-size:0.58rem; text-transform:uppercase; letter-spacing:1.5px; color:#888; font-weight:700; margin-bottom:5px;">Invoicing</div><div style="font-size:0.76rem; color:var(--black); line-height:1.5;">Total invoiced out this week. Outstanding receivables balance and aging items.</div></div>
+    <div style="border:1.5px solid var(--border); border-radius:6px; padding:12px 14px; background:#f8f8f8;"><div style="font-size:0.58rem; text-transform:uppercase; letter-spacing:1.5px; color:#888; font-weight:700; margin-bottom:5px;">For Greg</div><div style="font-size:0.76rem; color:var(--black); line-height:1.5;">Jobs opened and closed. One paragraph — anything Greg needs to decide or act on.</div></div>
+  </div>
+</section>
+
+<!-- ══ 8. FORD MONTHLY ══ -->
+<section class="section" id="ford-monthly">
+  <div class="section-header">
+    <div class="section-num">8</div>
+    <div class="section-meta">
+      <div class="section-label">Ford — Dispatch Coordinator</div>
+      <div class="section-title">Monthly Schedule</div>
+      <div class="section-who">Fixed dates every month <span>Ford</span></div>
+    </div>
+  </div>
+  <div class="intro-blurb">The following recurring tasks happen on fixed dates each month. Ford is responsible for owning these deadlines without being reminded.</div>
+  <table class="monthly-table">
+    <thead><tr><th style="width:18%;">Dates</th><th style="width:28%;">Task</th><th>Details</th></tr></thead>
+    <tbody>
+      <tr><td>1st – 14th</td><td>Daily & Weekly Routines</td><td>All daily and weekly schedules run as normal. Thursday Business Improvement slot active every week.</td></tr>
+      <tr><td>By 15th</td><td>Bookkeeper Delivers Report</td><td>Bookkeeper provides monthly cost of goods and expense report. Confirm receipt and flag any gaps to Greg.</td></tr>
+      <tr><td>15th – 17th</td><td>Profit Plan Report</td><td>Allocate costs per job from bookkeeper's data. Build monthly Profit Plan Report and deliver to Greg. This is the basis for quarterly bonus calculations. No report = no bonus for Ford that quarter.</td></tr>
+      <tr><td>18th</td><td>Begin Progress Billing</td><td>Begin invoicing all active jobs. Flag any jobs with missing costs or incomplete information to Greg before sending.</td></tr>
+      <tr><td>20th</td><td>All Invoicing Complete</td><td>All progress billing invoices must be sent by end of day on the 20th — no exceptions.</td></tr>
+      <tr><td>Last Thursday</td><td>Jobber Pricing Update</td><td>Compare recent ECOL and supplier purchases against Jobber pricing. Update any materials pricing that has shifted. Log changes made.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ══ 9. INVOICING ══ -->
+<section class="section" id="invoicing">
+  <div class="section-header">
+    <div class="section-num">9</div>
+    <div class="section-meta">
+      <div class="section-label">Ford — Dispatch Coordinator</div>
+      <div class="section-title">Invoicing Process</div>
+      <div class="section-who">Run this checklist on every job <span>Ford</span></div>
+    </div>
+  </div>
+  <div class="intro-blurb">Before any invoice goes to a client, run through every step below. A missed material, an unbilled permit, or an unchecked labour discrepancy is revenue we don't get back. Progress billing runs on the 18th — all invoices out by the 20th.</div>
+  <div class="sub-section-title">Verification Threshold</div>
+  <div class="threshold">
+    <div class="th-card th-std"><div class="th-label2">Under $3,000</div><div class="th-amount">Ford's Call</div><div class="th-desc2">Run the full checklist. If everything checks out and Ford is confident nothing is missing, send it. No crew verification required.</div></div>
+    <div class="th-card th-vfy"><div class="th-label2">$3,000 and Above</div><div class="th-amount">Verify With Crew</div><div class="th-desc2">Before sending — screenshot or voice memo to whoever did the job: "Does this look right? Anything missing?" Wait for confirmation. Then send.</div></div>
+  </div>
+  <div class="sub-section-title">The Invoice Checklist — Run Every Job</div>
+  <div class="steps">
+    <div class="step hl"><div class="step-num">1</div><div class="step-content"><div class="step-text"><div class="step-title">Open the Job in Jobber — Read All Notes First</div><div class="step-desc">Before touching anything else, read every note on the job file. Crew may have flagged missing items, extras done on site, special instructions, or changes. Don't skip this.</div><div class="tags"><span class="tag tag-jobber">Jobber</span></div></div></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-text"><div class="step-title">Check Non-ECOL Receipts in Jobber Notes or Dext</div><div class="step-desc">Look for receipt photos uploaded by crew. If a receipt came in via WhatsApp — upload it to Jobber notes immediately, then include in the invoice. Don't let receipts sit in messages.</div><div class="tags"><span class="tag tag-dext">Dext</span><span class="tag tag-jobber">Jobber Notes</span></div></div></div></div>
+    <div class="step hl"><div class="step-num">3</div><div class="step-content"><div class="step-text"><div class="step-title">Search Customer Name in ECOL — Pull All Orders</div><div class="step-desc">Search the customer name in ECOL invoices. There may be multiple orders across multiple days — pull all of them. Cross-reference every line against the materials the crew entered in Jobber. Flag any discrepancy.</div><div class="tags"><span class="tag tag-ecol">ECOL</span><span class="tag tag-jobber">Jobber</span></div></div></div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-text"><div class="step-title">Confirm Discrepancies With the Crew</div><div class="step-desc">If ECOL shows something ordered that's not in Jobber materials — or vice versa — quick message to the crew member: "Did you use all of this? Anything else go in that's not listed?"</div><div class="tags"><span class="tag tag-wp">WhatsApp</span></div></div></div></div>
+    <div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-text"><div class="step-title">Pull Labour Hours — Cross-Reference TSheets vs Jobber</div><div class="step-desc">Pull all hours logged for this job from TSheets/Workforce. Compare against hours in Jobber. Flag any gap between the two systems before billing.</div><div class="tags"><span class="tag tag-ts">TSheets</span><span class="tag tag-jobber">Jobber</span></div></div></div></div>
+    <div class="step"><div class="step-num">6</div><div class="step-content"><div class="step-text"><div class="step-title">Check for Permits — Was One Pulled on This Job?</div><div class="step-desc">Was a permit pulled? If yes — confirm the permit cost is included. Check Dext for any permit invoices that came in separately and may not be attached to the job yet.</div><div class="tags"><span class="tag tag-dext">Dext</span><span class="tag tag-key">Don't Miss This</span></div></div></div></div>
+    <div class="step"><div class="step-num">7</div><div class="step-content"><div class="step-text"><div class="step-title">Check for Trenching — Any Done on This Job?</div><div class="step-desc">Was any trenching done? If yes — confirm the trenching invoice is in Dext and included in the job total. These sometimes come in separately and get missed.</div><div class="tags"><span class="tag tag-dext">Dext</span></div></div></div></div>
+    <div class="step hl"><div class="step-num">8</div><div class="step-content"><div class="step-text"><div class="step-title">$3,000+ — Verify With the Crew Before Sending</div><div class="step-desc">Screenshot the draft or send a voice memo to whoever did the job: "Does this look right? Anything missing off this one?" Wait for confirmation. Then send.</div><div class="tags"><span class="tag tag-verify">$3,000+ Only</span><span class="tag tag-wp">WhatsApp</span></div></div></div></div>
+    <div class="step hl"><div class="step-num">9</div><div class="step-content"><div class="step-text"><div class="step-title">Build the Invoice in Jobber and Send</div><div class="step-desc">All materials, labour, permits, trenching, and extras confirmed. Build the invoice in Jobber and send to the client. Update job status to invoiced.</div><div class="tags"><span class="tag tag-jobber">Jobber</span><span class="tag tag-key">Send It</span></div></div></div></div>
+  </div>
+  <div class="checklist">
+    <div class="cl-hd">Before You Hit Send — Quick Confirmation</div>
+    <div class="cl-item"><div class="cl-box"></div><strong>Job notes read</strong> — no flags or extras missed</div>
+    <div class="cl-item"><div class="cl-box"></div><strong>Non-ECOL receipts</strong> — uploaded to Jobber notes, included in invoice</div>
+    <div class="cl-item"><div class="cl-box"></div><strong>ECOL invoices</strong> — all orders for this customer pulled and cross-referenced</div>
+    <div class="cl-item"><div class="cl-box"></div><strong>Labour hours</strong> — TSheets and Jobber match</div>
+    <div class="cl-item"><div class="cl-box"></div><strong>Permits</strong> — checked and included if applicable</div>
+    <div class="cl-item"><div class="cl-box"></div><strong>Trenching</strong> — checked and included if applicable</div>
+    <div class="cl-item"><div class="cl-box"></div><strong>Crew verification</strong> — done if $3,000 or above</div>
+  </div>
+</section>
+
+<!-- ══ 10. BONUS ══ -->
+<section class="section" id="bonus">
+  <div class="section-header">
+    <div class="section-num">10</div>
+    <div class="section-meta">
+      <div class="section-label">Everyone</div>
+      <div class="section-title">Quarterly Bonus Program</div>
+      <div class="section-who">Greg, Cole, Darryl, Wyatt, Dylan & Ford <span>Full Team</span></div>
+    </div>
+  </div>
+  <div class="intro-blurb">Every team member participates in the bonus pool. The business earns its keep first — the team shares in everything above the 10% EBDT threshold. Follow the process, keep the numbers clean, and the bonus is real.</div>
+  <div class="bonus-grid2">
+    <div class="bc bc-l"><div class="bc-lbl">Who is Eligible</div><div class="bc-title">Full Team — Greg, Cole, Darryl, Wyatt, Dylan & Ford</div><div class="bc-body">Every active team member participates. The business earns its keep first — the team shares in everything above the threshold. Higher earners who carry more responsibility receive a proportionally larger share.</div></div>
+    <div class="bc bc-d"><div class="bc-lbl">Ford's Condition</div><div class="bc-title">All Three Monthly Profit Plan Reports — On Time</div><div class="bc-body">Ford must deliver all three Profit Plan Reports on time during the quarter to receive his bonus share. Missing even one forfeits Ford's portion for that quarter. Other crew bonuses are not affected by Ford's reporting performance.</div></div>
+  </div>
+  <div class="calc-box">
+    <div class="calc-hd">How the Bonus is Calculated</div>
+    <div class="calc-body">Bonuses are calculated on profit above a <strong>10% EBDT margin threshold</strong> for the quarter. Distribution is <strong>wage-weighted</strong> — each team member's share is proportional to their wages earned in the quarter relative to total wages paid. The bonus pool percentage is set by Greg based on quarterly results.<br><br>Example: Quarterly revenue $300,000 → 10% threshold = $30,000 → Actual EBDT $45,000 → Bonus pool calculated on the $15,000 above threshold.</div>
+  </div>
+  <div class="sub-section-title">Quarterly Payout Calendar</div>
+  <div class="q-grid">
+    <div class="q-card"><div class="q-top" style="background:#1B3A6B; color:var(--yellow);">Q1</div><div class="q-body">Jan / Feb / Mar<br><strong>Payout: April</strong></div></div>
+    <div class="q-card"><div class="q-top" style="background:#2E75B6; color:#fff;">Q2</div><div class="q-body">Apr / May / Jun<br><strong>Payout: July</strong></div></div>
+    <div class="q-card"><div class="q-top" style="background:#1B3A6B; color:var(--yellow);">Q3</div><div class="q-body">Jul / Aug / Sep<br><strong>Payout: October</strong></div></div>
+    <div class="q-card"><div class="q-top" style="background:#111; color:var(--yellow);">Q4</div><div class="q-body">Oct / Nov / Dec<br><strong>Payout: January</strong></div></div>
+  </div>
+  <div class="sub-section-title">Tools & Key Contacts</div>
+  <table class="tools-table">
+    <thead><tr><th style="width:20%;">Tool</th><th>Purpose</th></tr></thead>
+    <tbody>
+      <tr><td>Jobber</td><td>Primary job management — scheduling, invoicing, job costing, client records</td></tr>
+      <tr><td>TSheets / Workforce</td><td>Time tracking — crew clock in/out by job. Cross-referenced against Jobber for invoicing.</td></tr>
+      <tr><td>QuickBooks Online</td><td>Accounting — supports bookkeeper, assists with cost of goods allocation</td></tr>
+      <tr><td>Dext</td><td>Receipt and expense capture — non-ECOL receipts upload here with job name</td></tr>
+      <tr><td>ECOL</td><td>Primary electrical supplier — invoices flow to Dext automatically when customer name is on PO</td></tr>
+      <tr><td>RingCentral</td><td>Phone system — auto-forwards to Greg at 4:30 PM daily</td></tr>
+      <tr><td>WhatsApp</td><td>Primary crew communication channel — morning reports, daily check-ins, parts requests</td></tr>
+      <tr><td>OpenClaw</td><td>AI tool connected to Jobber via VPS — job search and tracking automation</td></tr>
+    </tbody>
+  </table>
+  <div class="rule-box"><div class="rule-icon">!</div><div><div class="rule-title">This Is a Living Document</div><div class="rule-desc">Updates are made during Ford's Thursday Business Improvement slot or as directed by Greg. If something in this manual isn't working, flag it to Greg — don't work around it. The system improves when problems get named. Last updated: May 2026.</div></div></div>
+</section>
+
+</main>
+
+<script>
+// Active nav highlight on scroll
+const sections = document.querySelectorAll('section[id]');
+const navItems = document.querySelectorAll('.nav-item');
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navItems.forEach(item => item.classList.remove('active'));
+      const active = document.querySelector(`.nav-item[href="#${entry.target.id}"]`);
+      if (active) active.classList.add('active');
+    }
+  });
+}, { threshold: 0.3 });
+
+sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
